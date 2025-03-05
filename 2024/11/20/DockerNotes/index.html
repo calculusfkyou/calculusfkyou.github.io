@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>DockerNotes | Charlie Wu</title>
+  <meta name="description" content="自製 Docker 入門筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DockerNotes">
+<meta property="og:url" content="https://calculusfkyou.github.io/2024/11/20/DockerNotes/index.html">
+<meta property="og:site_name" content="Wuuu">
+<meta property="og:description" content="自製 Docker 入門筆記">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20200912/20025481WAftFZXMHY.png">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1400/1*k5HGvX9KIVzmwCJhcIZQ-g.png">
+<meta property="article:published_time" content="2024-11-20T15:19:13.000Z">
+<meta property="article:modified_time" content="2025-03-05T09:38:41.834Z">
+<meta property="article:author" content="Charlie Wu">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20200912/20025481WAftFZXMHY.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://calculusfkyou.github.io/2024/11/20/DockerNotes/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Wuuu" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/calculusfkyou" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Charlie Wu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">student</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Taiwan</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/calculusfkyou" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100013579877013&locale=zh_TW" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>暑假除了認真上課，我在學習玩Hexo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Contest/">Contest</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GDSC/">GDSC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NCPC/" rel="tag">NCPC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lock/" rel="tag">lock</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/" rel="tag">test</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/NCPC/" style="font-size: 13px;">NCPC</a> <a href="/tags/lock/" style="font-size: 13px;">lock</a> <a href="/tags/test/" style="font-size: 13px;">test</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/03/05/hello-world/" class="title">歡迎</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-03-05T09:38:41.834Z" itemprop="datePublished">2025-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/20/DockerNotes/" class="title">DockerNotes</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-20T15:19:13.000Z" itemprop="datePublished">2024-11-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Contest/">Contest</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/10/21/ncpc/" class="title">NCPC Contest</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-10-21T09:16:27.000Z" itemprop="datePublished">2024-10-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/GDSC/">GDSC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/24/GDSC_onboarding_event/" class="title">GDSC onboarding event</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-24T15:38:57.000Z" itemprop="datePublished">2024-08-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blog/">blog</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/08/11/testPost/" class="title">testPost</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-08-11T23:27:17.000Z" itemprop="datePublished">2024-08-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-DockerNotes" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DockerNotes
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/11/20/DockerNotes/" class="article-date">
+	  <time datetime="2024-11-20T15:19:13.000Z" itemprop="datePublished">2024-11-20</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/11/20/DockerNotes/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Docker-入門筆記"><a href="#Docker-入門筆記" class="headerlink" title="Docker 入門筆記"></a>Docker 入門筆記</h1><hr>
+<h2 id="1-Docker-使用流程與說明"><a href="#1-Docker-使用流程與說明" class="headerlink" title="1. Docker 使用流程與說明"></a>1. Docker 使用流程與說明</h2><h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><ol>
+<li><strong>撰寫或下載鏡像（Image）</strong>：<ul>
+<li>從官方倉庫（如 Docker Hub）下載現有鏡像，或者基於自己的需求撰寫 <code>Dockerfile</code>。</li>
+</ul>
+</li>
+<li><strong>構建鏡像（Build Image）</strong>：<ul>
+<li>使用 <code>docker build</code> 指令，從 <code>Dockerfile</code> 中構建自定義鏡像。</li>
+</ul>
+</li>
+<li><strong>運行容器（Run Container）</strong>：<ul>
+<li>基於鏡像啟動容器，並配置端口、卷等。</li>
+</ul>
+</li>
+<li><strong>操作容器（Manage Container）</strong>：<ul>
+<li>通過指令啟動、停止、刪除容器，或進行調試。</li>
+</ul>
+</li>
+<li><strong>跨裝置遷移與部署</strong>：<ul>
+<li>使用 Docker Compose 或導出鏡像，快速在其他設備上配置環境。<br>這樣做的好處是運行環境是完全一致的，無論是在本地、測試還是生產環境。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主要指令與說明"><a href="#主要指令與說明" class="headerlink" title="主要指令與說明"></a>主要指令與說明</h3><ul>
+<li><p><strong><code>docker pull [OPTIONS] [IMAGE:TAG]</code></strong></p>
+<ul>
+<li>從 Docker Hub 或其他註冊表下載指定的鏡像。</li>
+<li><code>[OPTIONS]</code>：<ul>
+<li><code>--all-tags</code>：下載指定鏡像的所有標籤。</li>
+</ul>
+</li>
+<li><strong>範例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull python:3.9</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>docker build [OPTIONS] [CONTEXT]</code></strong></p>
+<ul>
+<li>根據 <code>Dockerfile</code> 構建鏡像。</li>
+<li><code>[OPTIONS]</code>：<ul>
+<li><code>-t [NAME:TAG]</code>：給鏡像命名並指定標籤。</li>
+<li><code>--no-cache</code>：不使用緩存，強制重新構建。</li>
+</ul>
+</li>
+<li><strong>範例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my-python-app .</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>docker run [OPTIONS] [IMAGE] [COMMAND]</code></strong></p>
+<ul>
+<li>基於指定的鏡像啟動容器。</li>
+<li><code>[OPTIONS]</code>：<ul>
+<li><code>-d</code>：後台運行容器。</li>
+<li><code>-p [HOST_PORT]:[CONTAINER_PORT]</code>：映射主機和容器端口。</li>
+<li><code>--name [NAME]</code>：指定容器名稱。</li>
+<li><code>-v [HOST_PATH]:[CONTAINER_PATH]</code>：掛載本地文件或目錄到容器。</li>
+<li><code>--rm</code>：容器運行結束後自動刪除。</li>
+</ul>
+</li>
+<li><strong>範例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 --name my-python-container python:3.9</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="從-Docker-Hub-下載現有鏡像範例"><a href="#從-Docker-Hub-下載現有鏡像範例" class="headerlink" title="從 Docker Hub 下載現有鏡像範例"></a>從 Docker Hub 下載現有鏡像範例</h3><ul>
+<li><strong>下載 Python 鏡像並運行交互模式</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull python:3.9</span><br><span class="line">docker run -it python:3.9 python</span><br></pre></td></tr></table></figure>
+執行後你會進入 Python 交互環境，可以直接輸入程式碼測試。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from Docker!&quot;</span>)</span><br><span class="line">exit()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用-Dockerfile-構建與運行-Python-專案的完整流程"><a href="#使用-Dockerfile-構建與運行-Python-專案的完整流程" class="headerlink" title="使用 Dockerfile 構建與運行 Python 專案的完整流程"></a>使用 Dockerfile 構建與運行 Python 專案的完整流程</h3><hr>
+<h3 id="1-撰寫-Dockerfile"><a href="#1-撰寫-Dockerfile" class="headerlink" title="1. 撰寫 Dockerfile"></a>1. 撰寫 Dockerfile</h3><p>在專案目錄下建立 <code>Dockerfile</code>，內容如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用基礎映像</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.9</span>-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設置工作目錄</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 複製依賴文件並安裝依賴</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt requirements.txt</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install --no-cache-dir -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 複製程式碼</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露應用運行的端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 啟動指令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-構建鏡像"><a href="#2-構建鏡像" class="headerlink" title="2. 構建鏡像"></a>2. 構建鏡像</h3><p>運行以下指令，將 <code>Dockerfile</code> 轉換為鏡像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my-python-app .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-t my-python-app</code>：給鏡像取名為 <code>my-python-app</code>。</li>
+<li><code>.</code>：表示 <code>Dockerfile</code> 所在的目錄。</li>
+</ul>
+<p>完成後，Docker 會生成一個新的鏡像，你可以使用以下指令查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-運行容器"><a href="#3-運行容器" class="headerlink" title="3. 運行容器"></a>3. 運行容器</h3><p>基於剛剛構建的鏡像，啟動一個容器來執行代碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 --name my-container my-python-app</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-d</code>：後台運行容器。</li>
+<li><code>-p 5000:5000</code>：將容器內的 <code>5000</code> 端口映射到主機的 <code>5000</code> 端口。</li>
+<li><code>--name my-container</code>：給容器取名為 <code>my-container</code>。</li>
+<li><code>my-python-app</code>：基於剛剛構建的鏡像運行。</li>
+</ul>
+<p>此時，容器已經啟動並執行程式，打開瀏覽器訪問 <code>http://localhost:5000</code>，應該能看到你的應用在運行。</p>
+<h3 id="4-調試和修改代碼"><a href="#4-調試和修改代碼" class="headerlink" title="4. 調試和修改代碼"></a>4. 調試和修改代碼</h3><h4 id="進入容器："><a href="#進入容器：" class="headerlink" title="進入容器："></a>進入容器：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it my-container /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h4 id="在容器內執行-Python-腳本或進行調試："><a href="#在容器內執行-Python-腳本或進行調試：" class="headerlink" title="在容器內執行 Python 腳本或進行調試："></a>在容器內執行 Python 腳本或進行調試：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python app.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-停止或刪除容器"><a href="#5-停止或刪除容器" class="headerlink" title="5. 停止或刪除容器"></a>5. 停止或刪除容器</h3><h4 id="停止容器："><a href="#停止容器：" class="headerlink" title="停止容器："></a>停止容器：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop my-container</span><br></pre></td></tr></table></figure>
+
+<h4 id="刪除容器："><a href="#刪除容器：" class="headerlink" title="刪除容器："></a>刪除容器：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> my-container</span><br></pre></td></tr></table></figure>
+
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><ul>
+<li><strong>Dockerfile</strong> 是用來構建鏡像的，包含了應用的運行環境和依賴。</li>
+<li><strong>鏡像（Image）</strong> 是一個靜態模板，用於創建容器。</li>
+<li><strong>容器（Container）</strong> 是鏡像運行後的動態實例，在裡面執行你的代碼。</li>
+</ul>
+<hr>
+<h2 id="2-Dockerfile-撰寫與範例"><a href="#2-Dockerfile-撰寫與範例" class="headerlink" title="2. Dockerfile 撰寫與範例"></a>2. Dockerfile 撰寫與範例</h2><h3 id="Flask-範例程式碼"><a href="#Flask-範例程式碼" class="headerlink" title="Flask 範例程式碼"></a>Flask 範例程式碼</h3><h4 id="Flask-應用程式-app-py"><a href="#Flask-應用程式-app-py" class="headerlink" title="Flask 應用程式 (app.py)"></a>Flask 應用程式 (app.py)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">home</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, Docker!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="requirements-txt"><a href="#requirements-txt" class="headerlink" title="requirements.txt"></a>requirements.txt</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flask</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dockerfile-的結構與範例"><a href="#Dockerfile-的結構與範例" class="headerlink" title="Dockerfile 的結構與範例"></a>Dockerfile 的結構與範例</h3><h4 id="Dockerfile-範例"><a href="#Dockerfile-範例" class="headerlink" title="Dockerfile 範例"></a>Dockerfile 範例</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用基礎鏡像</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.9</span>-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定工作目錄</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安裝依賴</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install --no-cache-dir -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 複製應用代碼</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器啟動時執行的指令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>構建與運行</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -t flask-app .</span><br><span class="line">docker run -d -p 5000:5000 flask-app</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="3-多裝置間的環境配置與多運行環境"><a href="#3-多裝置間的環境配置與多運行環境" class="headerlink" title="3. 多裝置間的環境配置與多運行環境"></a>3. 多裝置間的環境配置與多運行環境</h2><h3 id="使用-Docker-Compose-快速配置多運行環境"><a href="#使用-Docker-Compose-快速配置多運行環境" class="headerlink" title="使用 Docker Compose 快速配置多運行環境"></a>使用 Docker Compose 快速配置多運行環境</h3><h4 id="docker-compose-yml-範例"><a href="#docker-compose-yml-範例" class="headerlink" title="docker-compose.yml 範例"></a><code>docker-compose.yml</code> 範例</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">nodejs:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">node:16</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">nodejs-container</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./node-app:/app</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;node&quot;</span>]</span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">python:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">python:3.9</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">python-container</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./python-app:/app</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;python&quot;</span>]</span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5000:5000&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:8</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mysql-container</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">example</span></span><br><span class="line">      <span class="attr">MYSQL_DATABASE:</span> <span class="string">mydb</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql-data:/var/lib/mysql</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">mysql-data:</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="運行指令"><a href="#運行指令" class="headerlink" title="運行指令"></a>運行指令</h4><ol>
+<li>在專案目錄下運行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure></li>
+<li>檢查服務：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="4-Docker-運作流程圖"><a href="#4-Docker-運作流程圖" class="headerlink" title="4. Docker 運作流程圖"></a>4. Docker 運作流程圖</h2><p>以下是 Docker 在 Client-Server 模式下的運作示意：</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://ithelp.ithome.com.tw/upload/images/20200912/20025481WAftFZXMHY.png" alt="Docker"><br><img src="https://miro.medium.com/v2/resize:fit:1400/1*k5HGvX9KIVzmwCJhcIZQ-g.png" alt="Docker"></h2><h2 id="5-重點整理"><a href="#5-重點整理" class="headerlink" title="5. 重點整理"></a>5. 重點整理</h2><ul>
+<li><p><strong>Docker 核心流程</strong>：</p>
+<ol>
+<li>撰寫 <code>Dockerfile</code>。</li>
+<li>使用 <code>docker build</code> 構建鏡像。</li>
+<li>使用 <code>docker run</code> 啟動容器。</li>
+<li>使用 <code>docker-compose.yml</code> 定義多服務環境。</li>
+</ol>
+</li>
+<li><p><strong>常用指令</strong>：</p>
+<ul>
+<li><code>docker build</code>：構建鏡像。</li>
+<li><code>docker run</code>：運行容器。</li>
+<li><code>docker-compose up</code>：運行多服務環境。</li>
+</ul>
+</li>
+<li><p><strong>高效管理技巧</strong>：</p>
+<ul>
+<li>使用 <code>Dockerfile</code> 定義環境，確保可重現性。</li>
+<li>使用 <code>docker-compose.yml</code> 快速配置多運行環境。</li>
+</ul>
+</li>
+<li><p><strong>Q&amp;A</strong>：</p>
+<ul>
+<li>Q：docker run只讓容器執行一次並退出，但仍然存在，而start是讓容器持續運行嗎<br>A：<ol>
+<li>docker run 的行為<br>docker run 是基於鏡像創建並啟動一個新的容器，執行 CMD 或 ENTRYPOINT 中定義的指令。<br>如果是一次性任務（如腳本執行完畢），容器會執行完畢後自動退出，但仍然存在於 docker ps -a 中。<br>若程式是持續運行（如 Web 伺服器），則會一直保持運行狀態，直到手動停止。</li>
+<li>docker start 的行為<br>docker start 只能用於已經創建過的、處於停止狀態的容器。<br>它會重新啟動該容器，但不會重新執行 CMD 指令（如果上次執行完畢，容器會馬上退出）。<br>如果是持續運行的程式，docker start 會讓它繼續運行。</li>
+</ol>
+</li>
+<li>Q：build鏡像假設名稱重複會怎麼辦？<br>A：會 覆蓋掉原本相同名稱和標籤的鏡像，不會出錯。</li>
+<li>Q：run 容器名稱重複會怎麼辦？<br>A：會報錯，提示容器名稱已存在。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文連結：</strong>
+      <a href="https://calculusfkyou.github.io/2024/11/20/DockerNotes/" title="DockerNotes" target="_blank" rel="external">https://calculusfkyou.github.io/2024/11/20/DockerNotes/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版權聲明： </strong> 本人所有文章除特別聲明外，均採用 <a href="https://www.gnu.org/licenses/gpl-3.0.zh-tw.html" target="_blank" rel="external">GNU GPLv3</a> 協議。轉發請註明出處！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/calculusfkyou" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/calculusfkyou" target="_blank"><span class="text-dark">Charlie Wu</span><small class="ml-1x">student</small></a></h3>
+        <div>歡迎底下留言，分享你的想法。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2025/03/05/hello-world/" title="歡迎"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/10/21/ncpc/" title="NCPC Contest"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="linkedin,facebook,twitter" data-mobile-sites="linkedin,facebook,twitter"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/calculusfkyou" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100013579877013&locale=zh_TW" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2025 Charlie Wu
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    // verify: '',
+    // notify: '',
+    appId: 'tHRG4yKfOR4jb72M8htxykY6-MdYXbMMI',
+    appKey: 'p3QfTVGp4cfwWaXGZZsyQBbF',
+    placeholder: 'Wirte something...',
+    avatar: 'mp',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: 'false',
+    lang: 'zh-TW',
+    serverURLs: 'https://thrg4ykf.api.lncldglobal.com'
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
